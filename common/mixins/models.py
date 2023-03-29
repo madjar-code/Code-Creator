@@ -8,8 +8,7 @@ from .managers import SoftDeletionManager
 
 class SoftDeletionModel(models.Model):
     """Abstract model with soft deletion"""
-    is_active: bool = models.BooleanField(
-        default=True, verbose_name='Активность')
+    is_active: bool = models.BooleanField(default=True)
 
     objects: Manager = models.Manager()
     active_objects: Manager = SoftDeletionManager()
@@ -42,11 +41,9 @@ class UUIDModel(models.Model):
 class TimeStampModel(models.Model):
     """Abstract model with timestamp"""
     created_at: datetime = models.DateTimeField(
-        auto_now_add=True, null=True,
-        verbose_name='Дата создания')
+        auto_now_add=True, null=True)
     updated_at: datetime = models.DateTimeField(
-        auto_now=True, null=True,
-        verbose_name='Дата последнего редактирования')
+        auto_now=True, null=True)
 
     class Meta:
         abstract: bool = True

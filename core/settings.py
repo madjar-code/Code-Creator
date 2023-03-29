@@ -28,6 +28,7 @@ INSTALLED_APPS = [
 
 INSTALLED_APPS += [
     'common',
+    'creator',
 ]
 
 

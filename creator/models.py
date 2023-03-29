@@ -4,27 +4,18 @@ from common.mixins.models import BaseModel
 
 
 class ModelImage(BaseModel):
-    model_name = models.CharField(
-        'Кодовое имя сущности', max_length=255)
-    model_verbose_name = models.CharField(
-        'Название сущности', max_length=255)
-    model_verbose_name_plural = models.CharField(
-        'Название сущности в множественном числе',
-        max_length=255)
-    has_images = models.BooleanField(
-        'Наличие множества картинок', default=False)
-    is_instantiated = models.BooleanField(
-        'Инициализация', default=False)
-    multilingualism = models.BooleanField(
-        'Мультиязычность', default=False)
-    in_admin_panel = models.BooleanField(
-        'Наличие в админке', default=False)
-    has_API = models.BooleanField(
-        'Наличие API', default=False)
+    model_name: str = models.CharField(max_length=255)
+    model_verbose_name: str = models.CharField(max_length=255)
+    model_verbose_name_plural: str = models.CharField(max_length=255)
+    has_images: bool = models.BooleanField(default=False)
+    is_instantiated: bool = models.BooleanField(default=False)
+    multilingualism: bool = models.BooleanField(default=False)
+    in_admin_panel: bool = models.BooleanField(default=False)
+    has_API: bool = models.BooleanField(default=False)
 
     class Meta:
-        verbose_name = 'Образ модели'
-        verbose_name_plural = 'Образы моделей'
+        verbose_name: str = 'Model Image'
+        verbose_name_plural: str = 'Model Images'
     
     def __str__(self) -> str:
         return f'{self.model_name} image'
@@ -38,18 +29,14 @@ class ModelImage(BaseModel):
 
 
 class CommonField(BaseModel):
-    model_image = models.ForeignKey(
-        to=ModelImage, on_delete=models.CASCADE,
-        verbose_name='Образ родительской модели')
-    field_name = models.CharField(
-        'Кодовое имя поля', max_length=255)
-    field_verbose_name = models.CharField(
-        'Название поля', max_length=255)
-    is_required_field = models.BooleanField(
-        'Обязательное поле?', default=False)
+    model_image: ModelImage = models.ForeignKey(
+        to=ModelImage, on_delete=models.CASCADE)
+    field_name: str = models.CharField(max_length=255)
+    field_verbose_name: str = models.CharField(max_length=255)
+    is_required_field: bool = models.BooleanField(default=False)
 
     class Meta:
-        abstract = True
+        abstract: bool = True
     
     def __str__(self) -> str:
         return self.field_verbose_name
@@ -64,27 +51,22 @@ class CommonField(BaseModel):
 
 
 class CharFieldImage(CommonField):
-    is_translatable = models.BooleanField(
-        'Переводимое поле?', default=True)
-    in_list_display = models.BooleanField(
-        'List Display', default=False)
-    in_search_fields = models.BooleanField(
-        'Search Field', default=False)
+    is_translatable: bool = models.BooleanField(default=True)
+    in_list_display: bool = models.BooleanField(default=False)
+    in_search_fields: bool = models.BooleanField(default=False)
     class Meta:
-        verbose_name = 'Образ малого текстового поля'
-        verbose_name_plural = 'Образы малых текстовых полей'
+        verbose_name: str = 'CharField Image'
+        verbose_name_plural: str = 'Images of CharFields'
 
 
 class TextFieldImage(CommonField):
-    is_translatable = models.BooleanField(
-        'Переводимое поле', default=True)
+    is_translatable = models.BooleanField(default=True)
     class Meta:
-        verbose_name = 'Образ текстового поля'
-        verbose_name_plural = 'Образы текстовых полей'
+        verbose_name: str = 'TextField Image'
+        verbose_name_plural: str = 'Images of TextFields'
 
 
 class ImageFieldImage(CommonField):
-
     class Meta:
-        verbose_name = 'Образ поля картинки'
-        verbose_name_plural = 'Образы полей картинок'
+        verbose_name: str = 'ImageField Image'
+        verbose_name_plural: str = 'Images of ImageFields'

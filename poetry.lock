@@ -16,6 +16,21 @@ files = [
 tests = ["mypy (>=0.800)", "pytest", "pytest-asyncio"]
 
 [[package]]
+name = "camel-converter"
+version = "3.0.0"
+description = "Converts a string from snake case to camel case or camel case to snake case"
+category = "main"
+optional = false
+python-versions = ">=3.7,<4.0"
+files = [
+    {file = "camel_converter-3.0.0-py3-none-any.whl", hash = "sha256:4b01725c8ccf918752436a8aab595fa153c5123c147225434bf1f40041acb3c7"},
+    {file = "camel_converter-3.0.0.tar.gz", hash = "sha256:7f200e1d1067245f39ae2df6c547dc3de8619060012679702f6471187280e6eb"},
+]
+
+[package.extras]
+pydantic = ["pydantic (>=1.8.2)"]
+
+[[package]]
 name = "certifi"
 version = "2022.12.7"
 description = "Python package for providing Mozilla's CA Bundle."
@@ -682,4 +697,4 @@ brotli = ["Brotli"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "bd48b7cafe831c5b7fdf6b8d5ad7e06ed531ee81aef02a48dbf7f7833a074ed2"
+content-hash = "efaae2c0a694988323c53b4871523b85177b9dfacad6f093baa309b77f0203ed"
