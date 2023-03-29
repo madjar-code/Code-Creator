@@ -22,7 +22,7 @@ class RequestTimeMiddleware:
             'time_moment': time_moment,
         }
 
-        with open('server/logging/request.log', 'a') as file:
+        with open('core/logging/request.log', 'a') as file:
             file.write(json.dumps(data) + '\n')
 
         thread_locals.path = ''

@@ -26,6 +26,10 @@ INSTALLED_APPS = [
     'drf_yasg',
 ]
 
+INSTALLED_APPS += [
+    'common',
+]
+
 
 gettext = lambda s: s
 LANGUAGES = (
@@ -37,7 +41,7 @@ LANGUAGES = (
 MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
 
 MIDDLEWARE = [
-    'server.logging.middleware.RequestTimeMiddleware',
+    'core.logging.middleware.RequestTimeMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
