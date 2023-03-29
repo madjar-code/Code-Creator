@@ -1,0 +1,45 @@
+from django.contrib import admin
+from django.contrib.admin import\
+    ModelAdmin, StackedInline
+from modeltranslation.admin import\
+    TranslationAdmin, TranslationStackedInline
+from entities.models import {{ model_name }}
+{%- if model_has_images -%}
+from entities.models import {{ model_name }}Image
+{%- endif -%}
+
+{% if model_has_images %}
+class {{ model_name }}ImageInline({{ stacked_inline_class }}):
+    model = {{ model_name }}Image
+    extra = 1
+{% endif %}
+
+# {{ id }}
+@admin.register({{ model_name }})
+class {{ model_name }}Admin({{ model_admin_class }}):
+    list_display = (
+        {%- for field_image in char_field_images %}
+        {%+ if field_image.in_list_display -%}
+        '{{ field_image.field_name }}',
+        {%- endif -%}
+        {% endfor %}
+    )
+    search_fields = (
+        {%- for field_image in char_field_images %}
+        {%+ if field_image.in_search_fields -%}
+        '{{ field_image.field_name }}',
+        {%- endif -%}
+        {% endfor %}
+    )
+
+    {%- if model_has_images -%}
+    inlines = (
+        {{model_name}}ImageInline,
+    )
+    {%- endif %}
+
+    readonly_fields = (
+        'created_at',
+        'updated_at',
+        'id',
+    )

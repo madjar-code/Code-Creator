@@ -7,11 +7,11 @@ from .code_generators import\
     APICodeGenerator, TranslationCodeGenerator
 
 
-MODELS_PREFIX = 'apps/entities/models'
-TRANSLATOR_PREFIX = 'apps/entities/translation'
-ADMINS_PREFIX = 'apps/entities/admin'
-API_PREFIX = 'apps/entities/api/schema'
-GRAPHQL_PATH = 'server/my_graphql.py'
+MODELS_PREFIX = 'entities/models'
+TRANSLATOR_PREFIX = 'entities/translation'
+ADMINS_PREFIX = 'entities/admin'
+API_PREFIX = 'entities/api/schema'
+GRAPHQL_PATH = 'core/my_graphql.py'
 
 class Manager:
     def __init__(self, image: ModelImage) -> None:
@@ -63,7 +63,6 @@ class Manager:
 
     def create_model(self) -> None:
         model_code = self.model_generator.create_model_code()
-        print(model_code)
         Manager.add_line_if_new(self.importing_string,
                                 self.model_init_path)
         with open(self.model_file_path,
@@ -77,7 +76,6 @@ class Manager:
                                 self.translation_init_path)
         translation_code = self.translation_generator.\
                                 create_translation_code()
-        print(translation_code)
         with open(self.translation_file_path,
                   'w', encoding='utf-8') as tranlation_file:
             tranlation_file.write(translation_code)

@@ -4,7 +4,7 @@ from creator.models import *
 from common.queryset import QuerySetChain
 
 
-TEMPLATES_PREFIX = 'apps/creator/services/code_templates'
+TEMPLATES_PREFIX = 'creator/services/code_templates'
 
 def get_field_images_by_model_image(model_image: ModelImage,
                                     *field_image_classes):

@@ -1,0 +1,17 @@
+from modeltranslation.translator import\
+    translator, TranslationOptions
+from ..models import {{ model_name }}
+
+
+# {{ id }}
+class {{ model_name }}TO(TranslationOptions):
+    fields = (
+        {%- for field_image in all_field_images %}
+        {%+ if field_image.is_translatable -%}
+        '{{ field_image.field_name }}',
+        {%- endif -%}
+        {% endfor %}
+    )
+
+
+translator.register({{ model_name }}, {{ model_name}}TO)

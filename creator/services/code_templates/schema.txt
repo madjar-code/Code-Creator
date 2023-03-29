@@ -1,0 +1,25 @@
+import graphene
+from graphene_django import DjangoObjectType
+from entities.models import {{ model_name }}
+
+
+# {{ id }}
+class {{ model_name }}Type(DjangoObjectType):
+	class Meta:
+		model = {{ model_name }}
+
+{% if model_has_image %}
+class {{ model_name }}ImageType(DjangoObjectType):
+	class Meta:
+		model = {{ model_name }}Image
+{% endif%}
+
+class {{ model_name }}sQuery(graphene.ObjectType):
+	{{ all_objects_name }} = graphene.List({{ model_name }}Type)
+	{{ one_object_name }} =  graphene.Field({{ model_name}}Type, id=graphene.UUID())
+
+	def resolve_{{ all_objects_name }}(root, info):
+		return {{ model_name }}.active_objects.all()
+
+	def resolve_{{ one_object_name }}(root, info, id):
+		return {{ model_name }}.active_objects.filter(id=id).first()

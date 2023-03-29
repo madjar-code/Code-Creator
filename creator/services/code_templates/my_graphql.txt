@@ -1,0 +1,21 @@
+import graphene
+from apps.skeletons.api.schema import\
+    SiteSkeletonsQuery
+from apps.mail.api.schema import EmailMutation
+{% for query in queries -%}
+from apps.entities.api.schema import {{ query_name }}
+{%- endfor %}
+from apps.entities.api.schema import AuthoritysQuery
+from apps.entities.api.schema import NewsItemsQuery
+
+
+class SuperQuery(SiteSkeletonsQuery,
+                 {% for query in queries -%}
+                 {{ query_name }}
+                 {%- endfor %}
+                 graphene.ObjectType,):
+    pass
+
+
+schema = graphene.Schema(
+    query=SuperQuery, mutation=EmailMutation)
