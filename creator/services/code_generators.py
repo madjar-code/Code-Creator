@@ -69,6 +69,7 @@ class TranslationCodeGenerator:
     def create_translation_code(self,) -> str:
         output = self.template.render({
             'id': self.model_image.id,
+            'model_has_images': self.model_image.has_images,
             'all_field_images': self.all_field_images,
             'model_name': self.model_image.model_name,
         })

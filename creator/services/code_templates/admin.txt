@@ -4,9 +4,9 @@ from django.contrib.admin import\
 from modeltranslation.admin import\
     TranslationAdmin, TranslationStackedInline
 from entities.models import {{ model_name }}
-{%- if model_has_images -%}
+{%- if model_has_images %}
 from entities.models import {{ model_name }}Image
-{%- endif -%}
+{%- endif %}
 
 {% if model_has_images %}
 class {{ model_name }}ImageInline({{ stacked_inline_class }}):
@@ -31,13 +31,11 @@ class {{ model_name }}Admin({{ model_admin_class }}):
         {%- endif -%}
         {% endfor %}
     )
-
-    {%- if model_has_images -%}
+    {% if model_has_images -%}
     inlines = (
         {{model_name}}ImageInline,
     )
     {%- endif %}
-
     readonly_fields = (
         'created_at',
         'updated_at',

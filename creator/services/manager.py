@@ -22,7 +22,7 @@ class Manager:
         self.api_generator = APICodeGenerator(image)
 
         # module name
-        name = to_snake(self.image.model_name)
+        name: str = to_snake(self.image.model_name)
 
         self.model_init_path = f'{MODELS_PREFIX}/__init__.py'
         self.model_file_path = f'{MODELS_PREFIX}/{name}.py'
@@ -62,7 +62,7 @@ class Manager:
         new_file.close()
 
     def create_model(self) -> None:
-        model_code = self.model_generator.create_model_code()
+        model_code: str = self.model_generator.create_model_code()
         Manager.add_line_if_new(self.importing_string,
                                 self.model_init_path)
         with open(self.model_file_path,
@@ -70,7 +70,24 @@ class Manager:
             model_file.write(model_code)
         self.image.is_instantiated = True
         self.image.save()
-    
+
+    def delete_model(self) -> None:
+        """
+        When deleting a model, the API and admin should
+        be deleted
+        """
+        os.remove(self.model_file_path)
+        Manager.delete_one_line(self.importing_string,
+                                self.model_init_path)
+        if self.image.multilingualism:
+            self.delete_translation()
+        if self.image.in_admin_panel:
+            self.unregister_model_in_adminpanel()
+        if self.image.has_API:
+            self.delete_API()
+        self.image.is_instantiated = False
+        self.image.save()
+
     def translate_model(self) -> None:
         Manager.add_line_if_new(self.importing_string,
                                 self.translation_init_path)
@@ -82,19 +99,11 @@ class Manager:
         self.image.multilingualism = True
         self.image.save()
 
-    def delete_model(self) -> None:
-        """
-        When deleting a model, the API and admin should
-        be deleted
-        """
-        os.remove(self.model_file_path)
+    def delete_translation(self) -> None:
+        os.remove(self.translation_file_path)
         Manager.delete_one_line(self.importing_string,
-                                self.model_init_path)
-        if self.image.in_admin_panel:
-            self.unregister_model_in_adminpanel()
-        if self.image.has_API:
-            self.delete_API()
-        self.image.is_instantiated = False
+                                self.translation_init_path)
+        self.image.multilingualism = False
         self.image.save()
 
     def register_model_in_adminpanel(self) -> None:

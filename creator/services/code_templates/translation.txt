@@ -1,6 +1,9 @@
 from modeltranslation.translator import\
     translator, TranslationOptions
 from ..models import {{ model_name }}
+{% if model_has_images -%}
+from ..models import {{ model_name }}Image
+{%- endif %}
 
 
 # {{ id }}
@@ -13,5 +16,13 @@ class {{ model_name }}TO(TranslationOptions):
         {% endfor %}
     )
 
+{% if model_has_images %}
+class {{ model_name }}ImageTO(TranslationOptions):
+    fields = ('name',)
+{% endif %}
+
 
 translator.register({{ model_name }}, {{ model_name}}TO)
+{% if model_has_images -%}
+translator.register({{ model_name }}Image, {{ model_name }}ImageTO)
+{%- endif %}

@@ -2,3 +2,7 @@ __pycache__
 .env
 request.log
 db.sqlite3
+entities/migrations/
+entities/models/
+entities/translation/
+entities/admin/

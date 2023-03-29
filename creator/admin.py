@@ -59,12 +59,6 @@ class ModelImageAdmin(admin.ModelAdmin):
             manager.create_model()
             manager.translate_model()
 
-    # @admin.action(description='Translate Model')
-    # def translate_model(modeladmin, request, queryset) -> None:
-    #     for image in queryset:
-    #         manager = Manager(image)
-    #         manager.translate_model()
-
     @admin.action(description='Model Deletion')
     def unregister_an_image(modeladmin, request, queryset) -> None:
         for image in queryset:

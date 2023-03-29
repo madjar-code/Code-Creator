@@ -7,20 +7,20 @@ class {{ model_name }}(BaseModel):
     {% for field_image in char_field_images -%}
     {{ field_image.field_name }} = models.CharField(
         "{{ field_image.field_verbose_name }}", max_length=255,
-        {% if not field_image.is_required_field %}blank=True, null=True{% endif %})
+        {%- if not field_image.is_required_field %}blank=True, null=True{%- endif -%})
     {% endfor -%}
 
     {% for field_image in text_field_images -%}
     {{ field_image.field_name }} = models.TextField(
         "{{ field_image.field_verbose_name }}",
-        {% if not field_image.is_required_field %}blank=True, null=True{% endif %})
+        {%- if not field_image.is_required_field %}blank=True, null=True{% endif %})
     {% endfor -%}
 
     {% for field_image in image_field_images -%}
     {{ field_image.field_name }} = models.ImageField(
         "{{ field_image.field_verbose_name }}", upload_to='entities/{{ model_name_snake_case }}/{{ field_image.field_name}}/',
         {% if not field_image.is_required_field %}blank=True, null=True{% endif %})
-    {% endfor -%}
+    {%- endfor %}
 
     class Meta:
         verbose_name = "{{ verbose_name }}"
