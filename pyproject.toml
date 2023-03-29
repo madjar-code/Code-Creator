@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "code creator"
+version = "0.1.0"
+description = ""
+authors = ["Madjar Ivan <evanmadjar@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+django = "^4.1.7"
+django-environ = "^0.10.0"
+django-jazzmin = "^2.6.0"
+django-cleanup = "^7.0.0"
+djangorestframework = "^3.14.0"
+django-cors-headers = "^3.14.0"
+drf-yasg = "^1.21.5"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
